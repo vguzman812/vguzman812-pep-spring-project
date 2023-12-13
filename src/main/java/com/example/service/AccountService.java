@@ -25,4 +25,16 @@ public class AccountService {
         return accountRepository.findByUsername(username);
     }
 
+    public boolean isRegistrationInputValid(Account account) {
+        if (account.getUsername() == null
+                || account.getUsername().isBlank()
+                || account.getPassword() == null
+                || account.getPassword().isBlank()
+                || account.getPassword().length() < 4) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
