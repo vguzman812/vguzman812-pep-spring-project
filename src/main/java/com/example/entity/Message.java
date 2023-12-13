@@ -6,6 +6,14 @@ import javax.persistence.*;
  * This is a class that models a Message.
  *
  * You should NOT make any modifications to this class.
+ *  Message : {
+ *      message_id: Integer,
+ *      posted_by: Integer (account_id),
+ *      message_text: String,
+ *      time_posted_epoch: Long, 
+ *      getters,
+ *      setters,
+ *  }
  */
 @Entity
 @Table(name="message")
