@@ -65,7 +65,7 @@ public class MessageService {
             if (message.getMessage_text() == null
                     || message.getMessage_text().isBlank()
                     || message.getMessage_text().length() > 255
-                    || accountRepository.existsById(message.getPosted_by())) {
+                    || !accountRepository.existsById(message.getPosted_by())) {
                 return false;
             } else {
                 return true;

@@ -21,9 +21,9 @@ public class SocialMediaController {
     @Autowired
     private MessageService messageService;
 
-    @PostMapping("/accounts/register")
+    @PostMapping("/register")
     public ResponseEntity<Account> register(@RequestBody Account account) {
-        if (accountService.isValidRegistrationInput(account)) {
+        if (!accountService.isValidRegistrationInput(account)) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -35,7 +35,7 @@ public class SocialMediaController {
         return ResponseEntity.ok(savedAccount);
     }
 
-    @PostMapping("/accounts/login")
+    @PostMapping("/login")
     public ResponseEntity<Account> login(@RequestBody Account account) {
         return accountService.findAccountByUsername(account.getUsername())
                 .filter(a -> a.getPassword().equals(account.getPassword()))
@@ -45,7 +45,8 @@ public class SocialMediaController {
 
     @PostMapping("/messages")
     public ResponseEntity<Message> createMessage(@RequestBody Message message) {
-        if (messageService.isValidMessageText(message)) {
+        if (!messageService.isValidMessageText(message)) {
+            String msg = "Oh no, I'm in side a bad dthing.";
             return ResponseEntity.badRequest().build();
         }
         Message savedMessage = messageService.saveAccount(message);
