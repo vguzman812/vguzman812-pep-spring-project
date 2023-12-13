@@ -16,7 +16,7 @@ public class AccountController {
     @PostMapping("/register")
     public ResponseEntity<Account> register(@RequestBody Account account) {
         // if invalid inputs, return 400, Client Error
-        if (accountService.isRegistrationInputValid(account)) {
+        if (accountService.isValidRegistrationInput(account)) {
             return ResponseEntity.badRequest().build();
         }
 

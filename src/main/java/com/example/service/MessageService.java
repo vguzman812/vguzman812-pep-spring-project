@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.entity.Message;
+import com.example.repository.AccountRepository;
 import com.example.repository.MessageRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class MessageService {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
     public Message saveAccount(Message message) {
         return messageRepository.save(message);
@@ -54,6 +58,21 @@ public class MessageService {
                     messageRepository.save(message);
                     return 1;
                 }).orElse(0);
+    }
+
+    public boolean isValidMessageText(Message message) {
+        if (message.getPosted_by() != null) {
+            if (message.getMessage_text() == null
+                    || message.getMessage_text().isBlank()
+                    || message.getMessage_text().length() > 255
+                    || accountRepository.existsById(message.getPosted_by())) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
 }

@@ -25,7 +25,7 @@ public class AccountService {
         return accountRepository.findByUsername(username);
     }
 
-    public boolean isRegistrationInputValid(Account account) {
+    public boolean isValidRegistrationInput(Account account) {
         if (account.getUsername() == null
                 || account.getUsername().isBlank()
                 || account.getPassword() == null
