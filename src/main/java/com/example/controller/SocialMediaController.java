@@ -52,7 +52,7 @@ public class SocialMediaController {
     public ResponseEntity<Account> login(@RequestBody Account account) {
         return accountService.findAccountByUsername(account.getUsername())
                 .filter(a -> a.getPassword().equals(account.getPassword()))
-                .map(ResponseEntity::ok)
+                .map(a -> ResponseEntity.ok(a))
                 .orElse(ResponseEntity.status(401).build());
     }
 
@@ -66,7 +66,6 @@ public class SocialMediaController {
     @PostMapping("/messages")
     public ResponseEntity<Message> createMessage(@RequestBody Message message) {
         if (!messageService.isValidMessageText(message)) {
-            String msg = "Oh no, I'm in side a bad dthing.";
             return ResponseEntity.badRequest().build();
         }
         Message savedMessage = messageService.saveAccount(message);
